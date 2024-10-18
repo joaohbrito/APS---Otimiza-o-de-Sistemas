@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 from scipy.optimize import minimize
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # Coleta de dados
 ativos = ['AAPL', 'MSFT', 'GOOGL', 'AMZN']
@@ -40,7 +40,7 @@ retorno_diario = dados.pct_change()
 retorno_carteira = (retorno_diario * alocacao).sum(axis=1)
 retorno_acumulado = (1 + retorno_carteira).cumprod()
 
-# Funções de visualização
+# Funções de visualização com Plotly
 def plot_fronteira():
     riscos = []
     retornos_esperados = []
@@ -53,30 +53,49 @@ def plot_fronteira():
         riscos.append(risco_portfolio)
         retornos_esperados.append(retorno_portfolio)
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(riscos, retornos_esperados, c='blue', marker='o', alpha=0.3)
-    plt.title('Fronteira Eficiente')
-    plt.xlabel('Risco (Volatilidade)')
-    plt.ylabel('Retorno Esperado')
-    plt.grid()
-    plt.show()
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=riscos,
+        y=retornos_esperados,
+        mode='markers',
+        marker=dict(size=5, color='blue', opacity=0.5),
+        name='Fronteira Eficiente'
+    ))
+
+    fig.update_layout(
+        title='Fronteira Eficiente',
+        xaxis_title='Risco (Volatilidade)',
+        yaxis_title='Retorno Esperado',
+        showlegend=True
+    )
+    fig.show()
 
 def plot_alocacao_ativos(alocacao, ativos):
-    plt.figure(figsize=(8, 6))
-    plt.pie(alocacao, labels=ativos, autopct='%1.1f%%', startangle=140)
-    plt.title('Alocação de Ativos na Carteira')
-    plt.axis('equal')
-    plt.show()
+    fig = go.Figure(data=[go.Pie(labels=ativos, values=alocacao, hole=.3)])
+
+    fig.update_layout(
+        title='Alocação de Ativos na Carteira',
+    )
+    fig.show()
 
 def plot_historico_desempenho(retorno_acumulado):
-    plt.figure(figsize=(10, 6))
-    plt.plot(retorno_acumulado, label='Retorno Acumulado da Carteira', color='blue')
-    plt.title('Histórico de Desempenho da Carteira')
-    plt.xlabel('Data')
-    plt.ylabel('Retorno Acumulado')
-    plt.legend()
-    plt.grid()
-    plt.show()
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
+        x=retorno_acumulado.index,
+        y=retorno_acumulado,
+        mode='lines',
+        name='Retorno Acumulado',
+        line=dict(color='blue')
+    ))
+
+    fig.update_layout(
+        title='Histórico de Desempenho da Carteira',
+        xaxis_title='Data',
+        yaxis_title='Retorno Acumulado',
+        showlegend=True
+    )
+    fig.show()
 
 # Exibir resultados
 print("Alocação ótima:", alocacao)

@@ -42,7 +42,7 @@ seaborn
 
 Em seguida, execute o comando:
 
-        bash
+        
 
         pip install -r requirements.txt
 
@@ -50,7 +50,7 @@ Em seguida, execute o comando:
 
 O código principal deve estar em um arquivo chamado main.py. Para executar o script e realizar a otimização da carteira, use o seguinte comando no terminal:
 
-        bash
+   
 
         python main.py
 
@@ -102,8 +102,8 @@ Implementação:
 
 Função Objetivo
 
-    Objetivo: Maximizar o retorno esperado da carteira.
-    Implementação:
+Objetivo: Maximizar o retorno esperado da carteira.
+Implementação:
 
 
 
@@ -146,9 +146,9 @@ Implementação:
 
 Funções de Visualização
 
-    Gráfico da Fronteira Eficiente
-        Objetivo: Visualizar a relação entre risco e retorno para diferentes alocações de ativos.
-        Implementação:
+ Gráfico da Fronteira Eficiente
+ Objetivo: Visualizar a relação entre risco e retorno para diferentes alocações de ativos.
+Implementação:
 
 
 
@@ -161,7 +161,7 @@ A função gera 1000 alocações aleatórias de ativos, calculando o risco e o r
 Gráfico de Alocação de Ativos
 
 Objetivo: Mostrar a distribuição do capital entre os ativos da carteira.
- Implementação:
+Implementação:
 
 
 
